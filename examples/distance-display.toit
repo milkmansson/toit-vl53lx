@@ -2,20 +2,20 @@
 // Use of this source code is governed by a Zero-Clause BSD license that can
 // be found in the EXAMPLES_LICENSE file.
 
-// Live distance on a 128x64 SSD1306 display: a large number in millimetres and
-// a scrolling plot of the last few seconds.  Works with a VL53L0X or a VL53L1X.
-//
-// The sensor and the display share one I2C bus.  The pins are in
-// display-views.toit.  Wave a hand or a sheet of paper in front of the sensor
-// and watch the trace.
-//
-// (Not tried on real hardware.  The drawing was checked on a simulated display.)
-
 import vl53lx show *
 import pixel-display show *
 import pixel-display.two-color show BLACK
 
 import .display-views
+
+/**
+  Live distance on a 128x64 SSD1306 display: a large number in millimetres and
+  a scrolling plot of the last few seconds.  Works with a VL53L0X or a VL53L1X.
+
+  The sensor and the display share one I2C bus.  The pins are in
+  display-views.toit.  Wave a hand or a sheet of paper in front of the sensor
+  and watch the trace.
+*/
 
 // Turns the picture on the display, clockwise, by 0, 90, 180 or 270 degrees.
 DISPLAY-ROTATION ::= 0
@@ -34,6 +34,21 @@ PLOT-MAX-MM-L1X ::= 3000
 // when it loses power, so it has to be set every time the program starts.
 OFFSET-MM/num ::= 27.520000000000003
 
+// The ranging profile of a VL53L0X: Vl53l0x.PROFILE-DEFAULT,
+// Vl53l0x.PROFILE-LONG-RANGE, Vl53l0x.PROFILE-HIGH-SPEED or
+// Vl53l0x.PROFILE-HIGH-ACCURACY.  Long range lowers the signal limit and
+// lengthens the laser pulses, which can reach further but gives more false
+// readings.  The display shows a short code for the profile: DEF, LR, HS or HA.
+L0X-PROFILE ::= Vl53l0x.PROFILE-HIGH-ACCURACY
+
+// The distance mode of a VL53L1X: Vl53l1x.DISTANCE-SHORT or
+// Vl53l1x.DISTANCE-LONG.  The display shows SR or LR.
+L1X-DISTANCE-MODE ::= Vl53l1x.DISTANCE-LONG
+
+// The codes shown on the display for the VL53L0X profiles, in the order of the
+// profile numbers.
+L0X-PROFILE-CODES ::= ["DEF", "LR", "HS", "HA"]
+
 main:
   bus := open-bus
   if not (bus.test 0x29):
@@ -48,24 +63,31 @@ main:
 
   name/string := ?
   plot-max/int := ?
+  profile-code/string := ?
   if sensor is Vl53l0x:
+    sensor.set-profile L0X-PROFILE
     sensor.start-continuous
     name = "L0X"
     plot-max = PLOT-MAX-MM-L0X
+    profile-code = L0X-PROFILE-CODES[L0X-PROFILE]
   else:
+    sensor.set-distance-mode L1X-DISTANCE-MODE
     sensor.start-ranging
     name = "L1X"
     plot-max = PLOT-MAX-MM-L1X
+    profile-code = L1X-DISTANCE-MODE == Vl53l1x.DISTANCE-LONG ? "LR" : "SR"
 
   number := BigNumber --x=0 --y=0 --digits=4
   history := HistoryView --x=0 --y=34 --width=128 --height=30 --max-mm=plot-max
   unit := Label --x=84 --y=14 --text="mm" --style=text-style
+  profile := Label --x=106 --y=14 --text=profile-code --style=text-style
   status := Label --x=84 --y=30 --text=name --style=text-style
   display.add
       Div --x=0 --y=0 --w=DISPLAY-WIDTH --h=DISPLAY-HEIGHT --background=BLACK [
           number,
           history,
           unit,
+          profile,
           status,
       ]
 

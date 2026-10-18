@@ -28,8 +28,8 @@ The probing order matters.  The VL53L0X is probed first, with a one-byte
   register index.  Only if that fails is the 16-bit probe used: a two-byte
   index written to a VL53L0X would be taken as "write the second byte to
   register 0x01", which is its sequence-config register.  A one-byte write to a
-  VL53L1X only sets half of an index and is believed to be harmless (not
-  verified on hardware).
+  VL53L1X only sets half of an index and is assumed to be harmless (Untested
+  on hardware).
 
 # Examples
 ```

@@ -12,7 +12,7 @@ import .mock-vl53l1x
 /**
 Functional checks of the parts of the drivers that the parity tests don't
   cover.  These only check the drivers against the simulated registers (and
-  so against my own reading of the reference code), not against a real chip.
+  so against the reference code as read for this port), not against a real chip.
 */
 
 test-l0x:
