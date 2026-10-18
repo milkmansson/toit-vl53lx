@@ -10,32 +10,6 @@ Neither chip has a published register map; ST ships a C API instead.  These
 drivers are ports of the register sequences in that API as reproduced by
 open-source libraries (see [Sources](#sources)).
 
-## Status — read this first
-
-**Nothing here has run on a real sensor yet.**  What has been checked, in simulation:
-
-| Check | Result |
-|---|---|
-| `toit analyze` on all sources, examples, tests | clean |
-| L0X: register trace of init + the operations in `tests/vl53l0x-parity-test.toit` vs Pololu's library | identical, 317 lines |
-| L1X: register trace of init + the operations in `tests/vl53l1x-parity-test.toit` vs ST's Ultra Lite Driver | identical, 240 lines (two documented differences, see the test header) |
-| Status decoding, thresholds, offset, crosstalk, profiles | `tests/functional-test.toit` |
-| `identify` on simulated L0X / L1X / no device | `tests/identify-test.toit` |
-
-"Identical trace" means the same bytes are written to the same registers in the
-same order *when run against the same simulated chip*.  The simulation does not
-model the optics, timing or the chip's reaction to a bad sequence, so this shows
-the port is faithful to the reference code, not that the reference code or the
-simulation matches the silicon.
-
-**Labels used in this document.**  *Quoted* text comes from the named source.
-*Estimated* means calculated or reasoned, not taken from a source or tested.
-*Unverified* means reported by a secondary source (such as a forum post) and not
-checked against the datasheet.  *Untested* means not run on real hardware.
-
-Run the tests (from `tests/`): `toit pkg install --local ..` once, then
-`toit run vl53l0x-parity-test.toit` and likewise for the other `*-test.toit`.
-
 ## Wiring
 
 | Breakout | ESP32 | Notes |
