@@ -12,7 +12,7 @@ import vl53lx show *
 main:
   bus := i2c.Bus
       --sda=21
-      --scl=22
+      --scl=20
   interrupt := gpio.Pin 4 --input --pull-up
   sensor := Vl53l0x (bus.device Vl53l0x.I2C-ADDRESS)
   sensor.configure-interrupt Vl53l0x.GPIO-NEW-SAMPLE-READY

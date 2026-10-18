@@ -11,7 +11,7 @@ import vl53lx show *
 main:
   bus := i2c.Bus
       --sda=21
-      --scl=22
+      --scl=20
   sensor := Vl53l0x (bus.device Vl53l0x.I2C-ADDRESS)
       --profile=Vl53l0x.PROFILE-HIGH-SPEED
   sensor.start-continuous --period-ms=100

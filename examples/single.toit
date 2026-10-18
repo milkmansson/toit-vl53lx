@@ -10,7 +10,7 @@ import vl53lx show *
 main:
   bus := i2c.Bus
       --sda=21
-      --scl=22
+      --scl=20
   sensor := open (bus.device 0x29)
   10.repeat:
     print sensor.read-measurement

@@ -17,7 +17,7 @@ FIRST-ADDRESS ::= 0x30
 main:
   bus := i2c.Bus
       --sda=21
-      --scl=22
+      --scl=20
   xshuts := XSHUT-PINS.map: | number/int |
     pin := gpio.Pin number --output
     pin.set 0

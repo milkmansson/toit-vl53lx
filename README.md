@@ -37,7 +37,7 @@ Run the tests (from `tests/`): `toit pkg install --local ..` once, then
 |---|---|---|
 | VIN / 3V3 | 3V3 | Most breakouts have a regulator and level shifting; check yours. |
 | GND | GND | |
-| SDA, SCL | any I2C pins (examples: 21, 22) | |
+| SDA, SCL | any I2C pins (examples: SDA 21, SCL 20) | |
 | XSHUT | 3V3, or a GPIO | Active-low reset.  If left floating on a board without a pull-up the chip may stay in reset (my inference).  Needed to change addresses, see `examples/multiple-sensors.toit`. |
 | GPIO1 / INT | optional GPIO | Interrupt output, see `examples/l0x-interrupt.toit`. |
 
@@ -76,6 +76,22 @@ live distance as a large number and a scrolling plot on a 128x64 SSD1306
 `display-views.toit`).  The display drawing was checked by rendering it on a
 simulated display, not on a real one.
 
+### Using a calibration offset with `distance-display`
+
+1. Put a flat, matt, mid-grey target at a known distance in front of the sensor
+   and set `TARGET-MM` in `examples/calibration.toit` to that distance. A target
+   that is too close to the sensor may give a poor result (my guess; check the
+   datasheet for the minimum range).
+2. Run `calibration.toit`. It prints `Offset: ... mm`.
+3. Paste that number into `OFFSET-MM` near the top of
+   `examples/distance-display.toit`, for example `OFFSET-MM/num ::= -4.25`, and
+   run it. The offset is added to every reading. Leave it at 0 for no correction.
+
+The sensor forgets the offset when it loses power, so `distance-display` sets
+it each time it starts. The VL53L0X keeps the value to 0.25 mm; the VL53L1X
+rounds it to a whole millimetre. The calibration routine is written for this
+driver and is not ST's own procedure; I have not tried it on real hardware.
+
 ## Which chip is on my board?
 
 Run `examples/identify.toit`.  It prints the chip kind and the raw ID bytes:
@@ -98,7 +114,7 @@ import i2c
 import vl53lx show *
 
 main:
-  bus := i2c.Bus --sda=21 --scl=22
+  bus := i2c.Bus --sda=21 --scl=20
   sensor := open (bus.device 0x29)
   print sensor.read-measurement   // "312 mm (valid)"
 ```

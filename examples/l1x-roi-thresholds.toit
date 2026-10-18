@@ -11,7 +11,7 @@ import vl53lx show *
 main:
   bus := i2c.Bus
       --sda=21
-      --scl=22
+      --scl=20
   sensor := Vl53l1x (bus.device Vl53l1x.I2C-ADDRESS)
       --distance-mode=Vl53l1x.DISTANCE-SHORT
       --timing-budget-ms=50

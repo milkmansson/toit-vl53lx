@@ -13,7 +13,7 @@ import vl53lx show *
 main:
   bus := i2c.Bus
       --sda=21
-      --scl=22
+      --scl=20
   if not bus.test 0x29:
     print "Nothing answers at 0x29.  Check wiring, power, and that XSHUT is high."
     return

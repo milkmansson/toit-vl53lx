@@ -29,6 +29,11 @@ DISPLAY-FLIP ::= false
 PLOT-MAX-MM-L0X ::= 1200
 PLOT-MAX-MM-L1X ::= 3000
 
+// The range offset in millimetres, from calibration.toit.  Paste the number it
+// prints here.  Leave it at 0 for no correction.  The sensor forgets the offset
+// when it loses power, so it has to be set every time the program starts.
+OFFSET-MM/num ::= 27.520000000000003
+
 main:
   bus := open-bus
   if not (bus.test 0x29):
@@ -36,6 +41,10 @@ main:
     return
   display := open-display bus --rotation=DISPLAY-ROTATION --flip=DISPLAY-FLIP
   sensor := open (bus.device 0x29)
+  if sensor is Vl53l0x:
+    sensor.set-range-offset-mm OFFSET-MM
+  else:
+    sensor.set-offset-mm OFFSET-MM.to-float.round
 
   name/string := ?
   plot-max/int := ?

@@ -37,7 +37,7 @@ import i2c
 import vl53lx show *
 
 main:
-  bus := i2c.Bus --sda=21 --scl=22
+  bus := i2c.Bus --sda=21 --scl=20
   device := bus.device 0x29
   print (identify device)
   sensor := open device
