@@ -41,6 +41,41 @@ Run the tests (from `tests/`): `toit pkg install --local ..` once, then
 | XSHUT | 3V3, or a GPIO | Active-low reset.  If left floating on a board without a pull-up the chip may stay in reset (my inference).  Needed to change addresses, see `examples/multiple-sensors.toit`. |
 | GPIO1 / INT | optional GPIO | Interrupt output, see `examples/l0x-interrupt.toit`. |
 
+## Field of view and clearance
+
+The sensors see a cone that widens with distance.
+
+**Stated figures** (forum posts quoting the datasheets; I have not opened the datasheets myself):
+
+- VL53L0X, about 25°: "Section 5 of the datasheet mentions that there is a 25 degree Field of View (FOV)" and "anything within the cone formed by that angle might be detected" ([Pololu forum](https://forum.pololu.com/t/vl53l0x-beam-width-angle/11483)).
+- VL53L1X, 27° at full size and 15° at the smallest region of interest (ROI): "maximum FoV using 16x16 SPADs is 27 degrees and minimum FoV using 4x4 SPADs is 15 degrees". A reply adds: "these are 'diagonal' FoV numbers. If your target is moving along the centerline of the sensor, your test results will be closer to 10 degrees." ([ST community](https://community.st.com/t5/imaging-sensors/vl53l1x-reduced-fov/m-p/328703)). Another thread: "the sensor should see about 27° edge to edge (so 13.5° in any direction out from the center)" ([Pololu forum](https://forum.pololu.com/t/vl53l1x-fov-angle-limit/16307)).
+- The ROI trades field of view for sensitivity: "allowing a smaller field of view (FoV) to be configured at the cost of losing some sensitivity" ([Pololu VL53L1X README](https://github.com/pololu/vl53l1x-arduino)). The default and maximum is 16x16, the minimum 4x4.
+
+**Cone width at a given distance** (my calculation, 2 x distance x tan(angle / 2); not from a datasheet):
+
+| Distance | L0X (25°) | L1X full ROI (27°) | L1X 4x4 ROI (15°) |
+|---|---|---|---|
+| 0.3 m | ~13 cm | ~14 cm | ~8 cm |
+| 1 m | ~44 cm | ~48 cm | ~26 cm |
+| 2 m | ~89 cm | ~96 cm | ~53 cm |
+
+**Guidance** (my reasoning and general practice, not tested on these boards):
+
+- Keep the whole cone clear. Anything inside it can be picked up: walls, shelf edges, cables. A closer object in the cone is likely to win over a farther target.
+- The sources disagree on how much of the angle you can actually use, so leave 10-20% extra (a guess).
+- Behind a window or bezel, light reflected from it reaches the sensor and shows up as an error at short range. Keep the cover close to the sensor and clean. For the L1X, `calibrate-xtalk` is meant for this.
+- To avoid clutter at the sides with an L1X, narrow the beam with `set-roi --width=4 --height=4`, at the cost of sensitivity. `set-roi --center` shifts the cone off-axis. The L0X has no ROI setting.
+- Run `examples/identify.toit` first: which row applies depends on which chip your board has.
+
+## Examples
+
+In `examples/`: `identify`, `single`, `continuous`, `calibration`, `l0x-interrupt`,
+`l1x-roi-thresholds`, `multiple-sensors`, and `distance-display`, which shows the
+live distance as a large number and a scrolling plot on a 128x64 SSD1306
+(needs the `pixel_display` and `ssd1306` packages; pins are in
+`display-views.toit`).  The display drawing was checked by rendering it on a
+simulated display, not on a real one.
+
 ## Which chip is on my board?
 
 Run `examples/identify.toit`.  It prints the chip kind and the raw ID bytes:
@@ -117,6 +152,7 @@ Consulted for cross-checking:
 
 - Adafruit CircuitPython drivers — https://github.com/adafruit/Adafruit_CircuitPython_VL53L0X , https://github.com/adafruit/Adafruit_CircuitPython_VL53L1X
 - STM32duino ports of ST's APIs — https://github.com/stm32duino/VL53L0X , https://github.com/stm32duino/VL53L1 , https://github.com/stm32duino/VL53L1X , https://github.com/stm32duino/VL53L4CD
+- Field-of-view figures: the three forum threads linked in the field-of-view section above.
 - Community register maps pointed out for this project (read earlier in the
   project; not used as code sources) — https://github.com/GrimbiXcode/VL53L0X-Register-Map , https://github.com/anisyanka/vl53l0x
 
