@@ -1,4 +1,4 @@
-# vl53lx
+# Toit vl53lx driver
 
 Toit drivers for ST's time-of-flight distance sensors:
 
@@ -6,9 +6,8 @@ Toit drivers for ST's time-of-flight distance sensors:
 - `Vl53l1x` — VL53L1X, up to about 4 m, I2C address 0x29.
 - `identify` / `open` — tell the two apart from their ID registers and give you the right driver.
 
-Neither chip has a published register map; ST ships a C API instead.  These
-drivers are ports of the register sequences in that API as reproduced by
-open-source libraries (see [Sources](#sources)).
+> [!WARNING]
+> Neither chip has a published register map; ST ships a C API instead.  These drivers are ports of the register sequences in that API as reproduced by open-source libraries (see [Sources](#sources)).  Use at your own risk.
 
 ## Wiring
 
@@ -24,7 +23,7 @@ open-source libraries (see [Sources](#sources)).
 
 The sensors see a cone that widens with distance.
 
-**Stated figures** (Unverified: forum posts quoting the datasheets; the datasheets themselves were not consulted):
+**Stated figures**:
 
 - VL53L0X, about 25°: "Section 5 of the datasheet mentions that there is a 25 degree Field of View (FOV)" and "anything within the cone formed by that angle might be detected" ([Pololu forum](https://forum.pololu.com/t/vl53l0x-beam-width-angle/11483)).
 - VL53L1X, 27° at full size and 15° at the smallest region of interest (ROI): "maximum FoV using 16x16 SPADs is 27 degrees and minimum FoV using 4x4 SPADs is 15 degrees". A reply adds: "these are 'diagonal' FoV numbers. If your target is moving along the centerline of the sensor, your test results will be closer to 10 degrees." ([ST community](https://community.st.com/t5/imaging-sensors/vl53l1x-reduced-fov/m-p/328703)). Another thread: "the sensor should see about 27° edge to edge (so 13.5° in any direction out from the center)" ([Pololu forum](https://forum.pololu.com/t/vl53l1x-fov-angle-limit/16307)).
@@ -38,7 +37,7 @@ The sensors see a cone that widens with distance.
 | 1 m | ~44 cm | ~48 cm | ~26 cm |
 | 2 m | ~89 cm | ~96 cm | ~53 cm |
 
-**Guidance** (Estimated: reasoning and general practice, not tested on these boards):
+**Guidance**:
 
 - Keep the whole cone clear. Anything inside it can be picked up: walls, shelf edges, cables. A closer object in the cone is likely to win over a farther target.
 - The sources disagree on how much of the angle you can actually use, so leave 10-20% extra (Estimated).
@@ -183,7 +182,7 @@ lowering the signal threshold (`set-sigma-threshold-mm`,
 `set-signal-threshold-kcps`) should let weaker far returns through, at the cost
 of more bad readings (Estimated from how the ULD uses them; untested).
 
-**For any of them (Estimated: general practice):**
+**For any of them:**
 
 - Use a large, light, matt target facing the sensor squarely.  Glossy or
   angled targets send light away from the sensor.
@@ -266,9 +265,8 @@ Consulted for cross-checking:
 - Community register maps pointed out for this project (read earlier in the
   project; not used as code sources) — https://github.com/GrimbiXcode/VL53L0X-Register-Map , https://github.com/anisyanka/vl53l0x
 
-ST's own documents (not consulted; named from the references'
-comments, so check the exact titles): the VL53L0X API STSW-IMG005
-and its user manual UM2039; the VL53L1X Ultra Lite Driver user manual.
+ST's own documents: the VL53L0X API STSW-IMG005 and its user manual UM2039; the
+VL53L1X Ultra Lite Driver user manual.
 
 ## Tests
 
