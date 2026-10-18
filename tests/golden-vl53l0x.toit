@@ -1,0 +1,328 @@
+// Copyright (C) 2026 Toit Contributors.
+// Use of this source code is governed by a Zero-Clause BSD license that can
+// be found in the EXAMPLES_LICENSE file.
+
+// GENERATED FILE.  Do not edit.
+// The register-level trace that Pololu's VL53L0X Arduino library produces
+// when it runs the scenario in vl53l0x-parity-test.toit against the simulated
+// chip in mock-vl53l0x.toit.  See tests/trace-harness/README.md.
+
+GOLDEN-VL53L0X-TRACE ::= """
+# init
+R C0 1
+R 89 1
+W 89 01
+W 88 00
+W 80 01
+W FF 01
+W 00 00
+R 91 1
+W 00 01
+W FF 00
+W 80 00
+R 60 1
+W 60 12
+W 44 00 20
+W 01 FF
+W 80 01
+W FF 01
+W 00 00
+W FF 06
+R 83 1
+W 83 05
+W FF 07
+W 81 01
+W 80 01
+W 94 6B
+W 83 00
+R 83 1
+W 83 01
+R 92 1
+W 81 00
+W FF 06
+R 83 1
+W 83 01
+W FF 01
+W 00 01
+W FF 00
+W 80 00
+R B0 6
+W FF 01
+W 4F 00
+W 4E 2C
+W FF 00
+W B6 B4
+W B0 00 F0 FF 00 00 00
+W FF 01
+W 00 00
+W FF 00
+W 09 00
+W 10 00
+W 11 00
+W 24 01
+W 25 FF
+W 75 00
+W FF 01
+W 4E 2C
+W 48 00
+W 30 20
+W FF 00
+W 30 09
+W 54 00
+W 31 04
+W 32 03
+W 40 83
+W 46 25
+W 60 00
+W 27 00
+W 50 06
+W 51 00
+W 52 96
+W 56 08
+W 57 30
+W 61 00
+W 62 00
+W 64 00
+W 65 00
+W 66 A0
+W FF 01
+W 22 32
+W 47 14
+W 49 FF
+W 4A 00
+W FF 00
+W 7A 0A
+W 7B 00
+W 78 21
+W FF 01
+W 23 34
+W 42 00
+W 44 FF
+W 45 26
+W 46 05
+W 40 40
+W 0E 06
+W 20 1A
+W 43 40
+W FF 00
+W 34 03
+W 35 44
+W FF 01
+W 31 04
+W 4B 09
+W 4C 05
+W 4D 04
+W FF 00
+W 44 00
+W 45 20
+W 47 08
+W 48 28
+W 67 00
+W 70 04
+W 71 01
+W 72 FE
+W 76 00
+W 77 00
+W FF 01
+W 0D 01
+W FF 00
+W 80 01
+W 01 F8
+W FF 01
+W 8E 01
+W 00 01
+W FF 00
+W 80 00
+W 0A 04
+R 84 1
+W 84 00
+W 0B 01
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 01 E8
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 71 02 85
+W 01 01
+W 00 41
+R 13 1
+W 0B 01
+W 00 00
+W 01 02
+W 00 01
+R 13 1
+W 0B 01
+W 00 00
+W 01 E8
+# init-result 1
+# get-budget
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+# budget 28727
+# single
+W 80 01
+W FF 01
+W 00 00
+W 91 3C
+W 00 01
+W FF 00
+W 80 00
+W 00 01
+R 00 1
+R 13 1
+R 1E 2
+W 0B 01
+# range 300
+# continuous-b2b
+W 80 01
+W FF 01
+W 00 00
+W 91 3C
+W 00 01
+W FF 00
+W 80 00
+W 00 02
+R 13 1
+R 1E 2
+W 0B 01
+# range 300
+W 00 01
+W FF 01
+W 00 00
+W 91 00
+W 00 01
+W FF 00
+# continuous-timed-100
+W 80 01
+W FF 01
+W 00 00
+W 91 3C
+W 00 01
+W FF 00
+W 80 00
+R F8 2
+W 04 00 04 E2 00
+W 00 04
+R 13 1
+R 1E 2
+W 0B 01
+# range 300
+W 00 01
+W FF 01
+W 00 00
+W 91 00
+W 00 01
+W FF 00
+# signal-rate-0.1
+W 44 00 0C
+R 44 2
+# limit-micro 93750
+# vcsel-pre-18
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 57 50
+W 56 08
+W 50 08
+W 51 00 74
+W 46 04
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 71 01 F9
+R 01 1
+W 01 02
+W 00 01
+R 13 1
+W 0B 01
+W 00 00
+W 01 E8
+# r 1
+# vcsel-final-14
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 48 48
+W 47 08
+W 32 03
+W 30 07
+W FF 01
+W 30 20
+W FF 00
+W 70 06
+W 71 01 C2
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 71 01 C2
+R 01 1
+W 01 02
+W 00 01
+R 13 1
+W 0B 01
+W 00 00
+W 01 E8
+# r 1
+# budget-200ms
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 71 04 E0
+# r 1
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+# budget 199312
+# budget-20ms
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+W 71 00 E1
+# r 1
+R 01 1
+R 50 1
+R 46 1
+R 51 2
+R 70 1
+R 71 2
+# budget 19995
+# get-vcsel
+R 50 1
+R 70 1
+# pre 18 final 14
+# set-address
+W 8A 30
+"""

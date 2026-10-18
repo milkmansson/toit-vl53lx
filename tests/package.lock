@@ -1,0 +1,6 @@
+sdk: ^2.0.0-alpha.189
+prefixes:
+  vl53lx: vl53lx
+packages:
+  vl53lx:
+    path: ..
