@@ -1,0 +1,251 @@
+// Copyright (C) 2026 Toit Contributors.
+// Use of this source code is governed by a Zero-Clause BSD license that can
+// be found in the EXAMPLES_LICENSE file.
+
+// Generated.  The register trace of ST's VL53L1X Ultra Lite Driver, as shipped
+// in the SparkFun VL53L1X library, run by tests/trace-harness-l1x/main.cpp
+// against the simulated chip in tests/trace-harness-l1x/Wire.h.
+
+GOLDEN-VL53L1X-TRACE ::= """
+# init
+R 010F 2
+W 002D 00
+W 002E 01
+W 002F 01
+W 0030 01
+W 0031 02
+W 0032 00
+W 0033 02
+W 0034 08
+W 0035 00
+W 0036 08
+W 0037 10
+W 0038 01
+W 0039 01
+W 003A 00
+W 003B 00
+W 003C 00
+W 003D 00
+W 003E FF
+W 003F 00
+W 0040 0F
+W 0041 00
+W 0042 00
+W 0043 00
+W 0044 00
+W 0045 00
+W 0046 20
+W 0047 0B
+W 0048 00
+W 0049 00
+W 004A 02
+W 004B 0A
+W 004C 21
+W 004D 00
+W 004E 00
+W 004F 05
+W 0050 00
+W 0051 00
+W 0052 00
+W 0053 00
+W 0054 C8
+W 0055 00
+W 0056 00
+W 0057 38
+W 0058 FF
+W 0059 01
+W 005A 00
+W 005B 08
+W 005C 00
+W 005D 00
+W 005E 01
+W 005F DB
+W 0060 0F
+W 0061 01
+W 0062 F1
+W 0063 0D
+W 0064 01
+W 0065 68
+W 0066 00
+W 0067 80
+W 0068 08
+W 0069 B8
+W 006A 00
+W 006B 00
+W 006C 00
+W 006D 00
+W 006E 0F
+W 006F 89
+W 0070 00
+W 0071 00
+W 0072 00
+W 0073 00
+W 0074 00
+W 0075 00
+W 0076 00
+W 0077 01
+W 0078 0F
+W 0079 0D
+W 007A 0E
+W 007B 0E
+W 007C 00
+W 007D 00
+W 007E 02
+W 007F C7
+W 0080 FF
+W 0081 9B
+W 0082 00
+W 0083 00
+W 0084 00
+W 0085 01
+W 0086 00
+W 0087 00
+W 0086 01
+W 0087 40
+R 0030 1
+R 0031 1
+W 0086 01
+W 0087 00
+W 0008 09
+W 000B 00
+R 005E 2
+W 004B 0A
+W 0060 0F
+W 0063 0D
+W 0069 B8
+W 0078 0F 0D
+W 007A 0E 0E
+R 004B 1
+R 004B 1
+W 005E 01 CC
+W 0061 01 EA
+# timing-100
+R 004B 1
+W 005E 01 CC
+W 0061 01 EA
+# get-timing
+R 005E 2
+# timing 100
+# mode-short
+R 005E 2
+W 004B 14
+W 0060 07
+W 0063 05
+W 0069 38
+W 0078 07 05
+W 007A 06 06
+R 004B 1
+W 005E 02 E1
+W 0061 03 88
+# get-mode
+R 004B 1
+# mode 1
+# timing-33
+R 004B 1
+W 005E 00 D6
+W 0061 00 6E
+# mode-long
+R 005E 2
+W 004B 0A
+W 0060 0F
+W 0063 0D
+W 0069 B8
+W 0078 0F 0D
+W 007A 0E 0E
+R 004B 1
+W 005E 00 60
+W 0061 00 6E
+# timing-200
+R 004B 1
+W 005E 02 D9
+W 0061 02 F8
+R 005E 2
+# timing 200
+# inter-measurement-120
+R 00DE 2
+W 006C 00 00 C1 80
+R 006C 4
+R 00DE 2
+# inter-measurement 121
+# roi-8x8
+W 007F 96
+W 0080 77
+R 0080 1
+# roi-x 8
+# roi-y 8
+# roi-16x16
+W 007F C7
+W 0080 FF
+R 0080 1
+# roi-x 16
+# roi-y 16
+# offset
+W 001E FF D0
+W 0020 00 00
+W 0022 00 00
+# xtalk
+W 0018 00 00
+W 001A 00 00
+W 0016 01 00
+R 0016 2
+# xtalk 500
+# thresholds
+R 0046 1
+W 0046 02
+W 0072 01 2C
+W 0074 00 64
+R 0046 1
+# window 2
+R 0074 2
+# low 100
+R 0072 2
+# high 300
+# thresholds-no-target
+R 0046 1
+W 0046 43
+W 0072 01 90
+W 0074 00 32
+# signal-sigma
+W 0066 00 80
+R 0066 2
+# signal 1024
+W 0064 01 68
+R 0064 2
+# sigma 90
+# polarity-low
+R 0030 1
+W 0030 11
+R 0030 1
+# polarity 0
+# polarity-high
+R 0030 1
+W 0030 01
+R 0030 1
+# polarity 1
+# ranging
+W 0086 01
+W 0087 40
+R 0030 1
+R 0031 1
+# ready 1
+R 0096 2
+# distance 300
+W 0086 01
+W 0087 00
+# oneshot
+W 0086 01
+W 0087 10
+# temperature
+W 0008 81
+W 000B 92
+W 0086 01
+W 0087 40
+R 0030 1
+R 0031 1
+W 0086 01
+W 0087 00
+W 0008 09
+W 000B 00
+# set-address
+W 0001 30
+"""

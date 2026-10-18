@@ -1,0 +1,4 @@
+name: vl53lx
+description: Toit drivers for the ST VL53L0X and VL53L1X time-of-flight distance sensors.
+environment:
+  sdk: ^2.0.0-alpha.189
