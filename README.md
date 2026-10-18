@@ -108,33 +108,28 @@ main:
 
 ## Feature coverage
 
-| | VL53L0X | VL53L1X | VL53L4CD |
-|---|---|---|---|
-| Driver in this package | yes | yes | no (identified by `identify` only) |
-| Maximum range (ST's figure, best case) | 2 m | 4 m | 1.2 m (see note) |
-| Field of view (ST's figure) | about 25° (forum quoting the datasheet) | 27° typical, 15° with 4x4 ROI (forum) | 18° diagonal |
-| Single-shot / continuous ranging | yes (continuous: back-to-back or timed) | yes (continuous or one-shot) | - |
-| Status, signal and ambient rates, SPAD count | yes | yes | - |
-| Timing budget | arbitrary, in µs | the ULD's fixed set: 15 (short only), 20, 33, 50, 100, 200, 500 ms | - |
-| Inter-measurement period | `start-continuous --period-ms` | `set-inter-measurement-ms` | - |
-| Distance mode / profiles | 4 profiles (default, long range, high speed, high accuracy) | short / long | - |
-| VCSEL pulse periods | yes | via distance mode | - |
-| Signal-rate limit | yes | signal and sigma thresholds | - |
-| ROI | no | yes (4x4 to 16x16, centre selectable) | - |
-| Interrupt config and thresholds | yes | yes (below / above / in / out window, on-no-target) | - |
-| Offset and crosstalk | set/get and offset calibration | set/get, offset and crosstalk calibration | - |
-| Change I2C address | yes | yes | - |
-| Temperature recalibration | n/a | `update-temperature` | - |
+| | VL53L0X | VL53L1X |
+|---|---|---|
+| Maximum range (ST's figure, best case) | 2 m | 4 m |
+| Field of view (ST's figure) | about 25° (forum quoting the datasheet) | 27° typical, 15° with 4x4 ROI (forum) |
+| Single-shot / continuous ranging | yes (continuous: back-to-back or timed) | yes (continuous or one-shot) |
+| Status, signal and ambient rates, SPAD count | yes | yes |
+| Timing budget | arbitrary, in µs | the ULD's fixed set: 15 (short only), 20, 33, 50, 100, 200, 500 ms |
+| Inter-measurement period | `start-continuous --period-ms` | `set-inter-measurement-ms` |
+| Distance mode / profiles | 4 profiles (default, long range, high speed, high accuracy) | short / long |
+| VCSEL pulse periods | yes | via distance mode |
+| Signal-rate limit | yes | signal and sigma thresholds |
+| ROI | no | yes (4x4 to 16x16, centre selectable) |
+| Interrupt config and thresholds | yes | yes (below / above / in / out window, on-no-target) |
+| Offset and crosstalk | set/get and offset calibration | set/get, offset and crosstalk calibration |
+| Change I2C address | yes | yes |
+| Temperature recalibration | n/a | `update-temperature` |
 
 Maximum ranges are quoted from ST's product pages
 ([VL53L0X](https://www.st.com/en/imaging-and-photonics-solutions/vl53l0x.html):
 "It can measure absolute distances up to 2 m";
 [VL53L1X](https://www.st.com/en/imaging-and-photonics-solutions/vl53l1x.html):
-"accurate ranging up to 4 m";
-[VL53L4CD](https://www.st.com/en/imaging-and-photonics-solutions/vl53l4cd.html):
-"very accurate distance measurements from only 1 mm up to 1200 mm" and "Diagonal
-FoV of 18°").  The VL53L4CD page's product table also lists "1.3" m, which
-does not match its 1200 mm text, so 1.2 m is used here.  The L0X page gave no
+"accurate ranging up to 4 m").  The L0X page gave no
 field of view; the 25° figure is the forum quote in the field-of-view section.
 These are ST's headline figures.  Estimated: real ranges are shorter in bright
 light or with dark, small or angled targets.  The datasheets, which list the
