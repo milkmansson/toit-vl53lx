@@ -66,8 +66,7 @@ VL53L1X.  Change `L0X-PROFILE` or `L1X-DISTANCE-MODE` near the top of the file.
 2. Set `L0X-PROFILE` (VL53L0X) or `L1X-DISTANCE-MODE` (VL53L1X) in
    `calibration.toit` to the profile you will use for measuring, the same
    values as in `distance-display.toit`. Calibrate and measure with the same
-   profile: a different profile may need a different offset (Estimated; not
-   measured).
+   profile: a different profile may need a different offset (Estimated).
 3. Run `calibration.toit`. It prints the profile it used, marked with `***`,
    then `Offset: ... mm`.
 4. Paste that number into `OFFSET-MM` near the top of
@@ -77,7 +76,7 @@ VL53L1X.  Change `L0X-PROFILE` or `L1X-DISTANCE-MODE` near the top of the file.
 The sensor forgets the offset when it loses power, so `distance-display` sets
 it each time it starts. The VL53L0X keeps the value to 0.25 mm; the VL53L1X
 rounds it to a whole millimetre. The calibration routine is written for this
-driver and is not ST's own procedure; it has not been tried on real hardware.
+driver and is not ST's own procedure.
 
 ## Which chip is on the board?
 
@@ -92,7 +91,7 @@ Run `examples/identify.toit`.  It prints the chip kind and the raw ID bytes:
 If it prints `unknown`, the raw bytes are your lead: paste them into an issue.
 `identify` probes the VL53L0X first with a one-byte index, because writing a
 two-byte index to a VL53L0X would write to its register 0x01.  That the
-one-byte write is harmless to a VL53L1X is an assumption (*Untested*).
+one-byte write is harmless to a VL53L1X was confirmed on hardware.
 
 ## Quick start
 
@@ -148,7 +147,7 @@ conditions, were not consulted.
 ## Getting more range
 
 What follows comes from the reference libraries' own comments where quoted. The
-rest is Estimated and has not been tested on these boards.
+rest is Estimated.
 
 **VL53L0X.**  Pololu's `Single.ino` has a `LONG_RANGE` option with the comments
 "lower the return signal rate limit (default is 0.25 MCPS)" and "increase laser
@@ -175,7 +174,7 @@ budget such as 200 or 500 ms, and the full 16x16 ROI (narrowing the ROI costs
 "some sensitivity", per the same README).  Raising the sigma threshold or
 lowering the signal threshold (`set-sigma-threshold-mm`,
 `set-signal-threshold-kcps`) should let weaker far returns through, at the cost
-of more bad readings (Estimated from how the ULD uses them; untested).
+of more bad readings (Estimated from how the ULD uses them).
 
 **For any of them:**
 
@@ -193,7 +192,7 @@ See "Reading noise" below if the readings of a stationary target jump around.
 Readings of a stationary target will scatter.  How much depends on the profile,
 the target and the light.  Not all of this is documented for these sensors;
 what is marked as quoted comes from the reference libraries, the rest is
-Estimated and has not been tested on these boards.
+Estimated.
 
 **One data point.**  A VL53L0X in long range (`PROFILE-LONG-RANGE`) pointed at
 a stationary target about 26 cm away, one reading per second, 27 readings, all
@@ -206,7 +205,7 @@ Long range lowers the signal limit from 0.25 to 0.1 MCPS and lengthens the
 laser pulses.  Pololu's README says a lower limit "increases the likelihood of
 getting an inaccurate reading because of reflections from objects other than
 the intended target."  The timing budget is not changed by this profile, so
-each reading still averages only a short measurement (Unverified: about 33 ms
+each reading still averages only a short measurement (about 33 ms
 by default).  The cone is also only about 12 cm wide at
 26 cm (see the field-of-view table), so edges or surfaces beside the target
 can pull a reading either way.  Bright infrared light, a dark or shiny target

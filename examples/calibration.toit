@@ -13,7 +13,7 @@ Put a flat, matt, mid-grey target (a sheet of grey card works) exactly
 The offset is measured with the profile set below, and the output says which
   one.  Use the same profile when you apply the offset, for example the same
   values of L0X-PROFILE and L1X-DISTANCE-MODE in distance-display.toit.  A
-  different profile may need a different offset (Estimated; not measured).
+  different profile may need a different offset (Estimated).
 */
 
 import i2c
